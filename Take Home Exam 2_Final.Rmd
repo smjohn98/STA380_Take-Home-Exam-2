@@ -10,7 +10,7 @@ output: pdf_document
 
 **Output** : pdf_document
 
-**GitHub Repository Link** : 
+**GitHub Repository Link** : https://github.com/smjohn98/STA380_Take-Home-Exam-2
 
 # Probability Practice
 
