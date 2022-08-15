@@ -248,7 +248,7 @@ Guru's assumptions of being able to recuperate costs in around 8-9 years seems t
 
 #Reading the CapMetro csv file
 capmetro=read.csv("https://raw.githubusercontent.com/dpuelz/STA380/master/data/capmetro_UT.csv")
-print(capmetro)
+#print(capmetro)
 ```
 
 ```{r echo=FALSE, warning=FALSE}
@@ -262,7 +262,7 @@ avg_boarding_every_hour = capmetro %>%
 ggplot(avg_boarding_every_hour) +
   geom_line(aes(y=avgboarding, x= hour_of_day))+
   facet_wrap(~day_of_week)+
-labs(title = "Capital Metro Boarding",y = "Average Boarding",x = "Time",caption="The average boarding on weekdays is much more than that on the weekends(Saturday/Sunday). The boarding steadily increases after 6:00 peaking at around 15:00-16:00 on all weekdays")
+labs(title = "Capital Metro Boarding",y = "Average Boarding",x = "Time",caption="The boarding steadily increases after 6:00 on all working days peaking at around 15:00-16:00 while being very low on weekends")
 ```
 
 ```{r echo=FALSE, warning=FALSE}
@@ -278,7 +278,7 @@ avg_alighting_every_hour = capmetro %>%
 ggplot(avg_alighting_every_hour) +
   geom_line(aes(y=avg_alighting , x= hour_of_day))+
   facet_wrap(~day_of_week)+
-labs(title = "Capital Metro Alighting",y = "Average Alighting",x = "Time",caption="The average alighting on weekdays is much more than that on the weekends(Saturday/Sunday). The alighting steadily increases after 6:00 peaking at around 8:00-9:00 on all weekdays, probably due to the fact that working people might be getting off the bus after taking a ride to office")
+labs(title = "Capital Metro Alighting",y = "Average Alighting",x = "Time",caption="The alighting steadily increases after 6:00 peaking at around 8:00-9:00 on all weekdays while being very low on weekends")
 ```
 
 ```{r echo=FALSE, warning=FALSE}
@@ -432,7 +432,7 @@ total_weatlh_med
 
 **Portfolio -1 for Safe portfolio**
 
-The VAR value of Safe Portfolio is :
+
 
 ```{r, echo = FALSE, warning=FALSE}
 initial_wealth = 100000
@@ -467,10 +467,13 @@ VAR
 
 
 ```
+The VAR value of Safe Portfolio is :
+
+
 
 **Portfolio - 2 for High Risk ETF's**
 
-The VAR value of High Risk Portfolio is :
+
 
 ```{r, echo = FALSE, warning=FALSE}
 initial_wealth = 100000
@@ -502,10 +505,14 @@ hist(sim2[,n_days], labels = TRUE,25)
 VAR = quantile(sim2[,n_days] - initial_wealth, .05)
 VAR
 ```
+The VAR value of High Risk Portfolio is :
+
+
+
 
 **Portfolio - 3 for Medium Risk ETF's**
 
-The VAR value of Medium Risk Portfolio is :
+
 
 ```{r, echo = FALSE, warning=FALSE}
 initial_wealth = 100000
@@ -537,6 +544,10 @@ hist(sim3[,n_days], labels = TRUE,25)
 VAR = quantile(sim3[,n_days] - initial_wealth, .05)
 VAR
 ```
+The VAR value of Medium Risk Portfolio is : 
+
+
+
 
 # **Clustering and PCA**
 
@@ -569,7 +580,8 @@ The first 2 principal components explain about half of the variance in the data.
 wine_loading_score = data.frame(wine_PCA$rotation)
 #print(wine_loading_score)
 wine_x_score=data.frame(wine_PCA$x)
-print(wine_x_score)
+#
+#print(wine_x_score)
 ```
 
 ```{r echo=FALSE, warning=FALSE}
@@ -595,8 +607,8 @@ We run a k-means model with k=2 (as we have two labels)
 ```{r echo=FALSE, warning=FALSE}
 library(ggalt)
 cluster_kmeans = kmeans(wine_scale, 2, nstart=25)
-cluster_kmeans$centers
-cluster_kmeans$cluster
+#cluster_kmeans$centers
+#cluster_kmeans$cluster
 qplot(pH, color, data=wine,color=factor(cluster_kmeans$cluster))
 qplot(alcohol,color,data=wine,color=factor(cluster_kmeans$cluster))
 qplot(sulphates,color,data=wine,color=factor(cluster_kmeans$cluster))
@@ -726,8 +738,8 @@ readerPlain = function(fname){
 							id=fname, language='en') }
 
 # Get list of all authors
-path_list = Sys.glob('C:/Users/smjoh/Documents/GitHub/STA380/data/ReutersC50/C50train/*')
-
+#path_list = Sys.glob('../ReutersC50/*/*/*')
+path_list = Sys.glob('C:/Users/smjoh/Documents/GitHub/STA380_Take-Home-Exam-2/ReutersC50/*/*')
 # Get author names from file paths
 all_authors = path_list %>%
 	{ strsplit(., '/', fixed=TRUE) } %>%
@@ -745,7 +757,10 @@ library(rsample)
 
 library(foreach)
 
-file_list = Sys.glob('C:/Users/smjoh/Documents/GitHub/STA380/data/ReutersC50/*/*/*.txt')
+#file_list = Sys.glob('C:/Users/smjoh/Documents/GitHub/STA380/data/ReutersC50/*/*/*.txt')
+file_list = Sys.glob('C:/Users/smjoh/Documents/GitHub/STA380_Take-Home-Exam-2/ReutersC50/*/*/*.txt')
+#file_list = Sys.glob('../ReutersC50/*/*/*.txt')
+
 all_authors_files = lapply(file_list, readerPlain) 
 #all_authors_files
 
@@ -808,7 +823,7 @@ We used Random Forest to predict the author based on the sets of words. We achie
 target = rep(all_authors, each=50)
 bow_matrix = as.data.frame(as.matrix(DTM_all_authors))
 bow_matrix['/TARGET/'] = target
-target=append(target, target)
+#target=append(target, target)
 
 bow_matrix = subset(bow_matrix, select = -c(datetimestamp, isdst,listcontent, mday, mon, wday, yday) )
 
@@ -946,7 +961,8 @@ Below is the image from Gephi with lift\>2 & support \> 0.01 & confidence \> 0.3
 
 ```{r include=FALSE, error=FALSE, warning=FALSE}
 # graph-based visualization
-# export
+# export+
+
 # associations are represented as edges
 # For rules, each item in the LHS is connected
 # with a directed edge to the item in the RHS. 
